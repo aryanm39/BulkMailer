@@ -1,0 +1,71 @@
+Assignment 1: Basic Hadoop File System Operations
+
+1. Create a new directory called data in HDFS.
+hdfs dfs -mkdir /data
+
+2. Upload a file called sample.txt from the local file system to the data directory in HDFS.
+hdfs dfs -put /path/to/local/sample.txt /data/
+
+3. List the files in the data directory.
+hdfs dfs -ls /data
+
+4. Copy the sample.txt file to a new file called sample_copy.txt in the same directory.
+hdfs dfs -cp /data/sample.txt /data/sample_copy.txt
+
+5. Delete the sample_copy.txt file
+hdfs dfs -rm /data/sample_copy.txt
+hdfs dfs -rm -skipTrash /data/sample_copy.txt
+
+
+
+
+
+Assignment 2: Working with Hadoop Directories
+
+
+1. Create a new directory called input and another called output.
+hdfs dfs -mkdir /input
+hdfs dfs -mkdir /output
+hdfs dfs -mkdir /input /output
+
+2. Create a subdirectory called subdir inside the input directory.
+hdfs dfs -mkdir /input/subdir
+hdfs dfs -mkdir -p /input/subdir
+
+3. Upload a file called data.txt to the input directory.
+hdfs dfs -put /path/to/local/data.txt /input/
+
+
+4. List the files in the input directory and its subdirectories.
+hdfs dfs -ls -R /input
+hdfs dfs -lsr /input
+
+5. Move the data.txt file to the subdir directory
+hdfs dfs -mv /input/data.txt /input/subdir/
+verify:
+hdfs dfs -ls -R /input
+
+
+
+
+Assignment 3: Hadoop File Permissions
+
+
+1. Create a new file called permissions.txt in HDFS.
+hdfs dfs -touchz /permissions.txt
+
+2. Change the ownership of the file to a user called hadoopuser.
+hdfs dfs -chown hadoopuser /permissions.txt
+
+3. Change the group ownership of the file to a group called hadoopgroup.
+hdfs dfs -chgrp hadoopgroup /permissions.txt
+change both owner and group
+hdfs dfs -chown hadoopuser:hadoopgroup /permissions.txt
+
+4. Set the permissions of the file to read-only for the owner and group.
+hdfs dfs -chmod 440 /permissions.txt
+hdfs dfs -chmod u=r,g=r,o= /permissions.txt
+
+5. Verify the permissions of the file
+hdfs dfs -ls /permissions.txt
+hdfs dfs -stat "%n %u:%g %a" /permissions.txt
